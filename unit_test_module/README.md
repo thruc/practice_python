@@ -51,3 +51,18 @@ ok
 7 passed and 0 failed.
 Test passed.
 ```
+
+# unitTest
+
+```
+>python test_culc.py
+setup
+clean up
+.setup
+clean up
+.ss
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+OK (skipped=2)
+```
