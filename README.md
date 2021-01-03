@@ -16,3 +16,9 @@ pip install -r requirements.txt
 ```
 deactivate
 ```
+
+
+# 調査中
+- gRPC
+- webrct
+- fraphQL
