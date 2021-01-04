@@ -8,7 +8,7 @@ class CalcTest(unittest.TestCase):
     def setUp(self):
         # テストそれぞれ開始時に呼ばれる
         print('setup')
-        self.cal = Culc()
+        self.cal = cluc.Culc()
 
     def tearDown(self):
         # テストそれぞれ終了時時に呼ばれる
