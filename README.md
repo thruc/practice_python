@@ -22,3 +22,16 @@ deactivate
 - gRPC
 - webrct
 - fraphQL
+
+## vscode settings.json
+
+```
+{
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.jediEnabled": false,
+    "python.autoComplete.extraPaths": [
+        "venv\\Lib\\site-packages"
+    ],
+    "python.languageServer": "Microsoft"
+}
+```
