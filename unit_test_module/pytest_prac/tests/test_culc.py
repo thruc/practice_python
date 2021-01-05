@@ -1,4 +1,4 @@
-from unit_test_module import cluc
+from .. import cluc
 import pytest
 
 is_release = True
