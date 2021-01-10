@@ -12,3 +12,20 @@
 >>> y | x
 {'key2': 'value2 from x', 'key3': 'value3 from y', 'key1': 'value1 from x'}
 ```
+
+# str.removeprefix(prefix) 
+New String Methods to Remove Prefixes and Suffixes
+
+# 型ヒント
+コンテナ系は、内包する型を指定するので、 list[str] などと表記を行いたい。しかし、これはPythonの文法エラーとなってしまいその為に、typingでは大文字の型 (例えば List, Tuple, Dict, Set) を準備していが
+対応するをtypingからインポートする代わりに、 list や dict のような組み込みのコレクション型を汎用型として使うことができるようになりました。標準ライブラリ内の他のいくつかの型も汎用型になりました。
+
+
+```python
+def greet_all(names: list[str]) -> None:
+    for name in names:
+        print("Hello", name)
+```
+
+# new-parser
+https://docs.python.org/3/whatsnew/3.9.html#new-parser
