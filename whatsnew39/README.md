@@ -43,6 +43,28 @@ python script.pyとした時に__file__属性にその実行したスクリプ�
 
 それから、過去の議論を追うと、 sys.argv[0]も絶対パスに変えちゃおうとしていたみたいです。が、そこは影響範囲が大きすぎるといういうツッコミが入り、そちらは取りやめになったみたいです。確かにそれはちょっとやり過ぎだと思うので良かったです。
 
+- Pythonの開発モードとデバッグビルドでは、 エンコードおよびエラーの引数は、現在の文字列のエンコードとデコードの操作のためにチェックされます。open()、str.encode() bytes.decode()
+
+
+```python
+
+>>> 'b'.encode('cp932').decode('utf-8', errors='Boom, Shaka Laka, Boom!')
+'b'
+>>>
+
+```
+
+```python
+
+>>> 'b'.encode('cp932').decode('utf-8', errors='Boom, Shaka Laka, Boom!')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+LookupError: unknown error handler name 'Boom, Shaka Laka, Boom!'
+>>>
+
+```
+
+
 - 空文字列("")に対するreplaceの挙動の変更
 空文字列("")に対して replaceメソッドを適用した時の挙動が変わります。これまでは、オプションのcount引数（最大何回変更を適用するかを指定する）が付いているとおかしな結果が出ていました。
 
@@ -57,6 +79,124 @@ python script.pyとした時に__file__属性にその実行したスクリプ�
 "".replace("", "p", 1) = "p"
 "".replace("", "p", 2) = "p"
 ```
+
+- デコレーターに関する制約の緩和
+「decorator」の定義がPython 3.8では「"@" dotted_name ["(" [argument_list [","]] ")"] NEWLINE」となっているのが、Python 3.9では「"@" assignment_expression NEWLINE」と変更
+
+Python 3.9では
+```python
+>>> def make_decorators():
+...     def decorator0(func):      
+...         def inner_func0(*args):
+...             print('decorator 0')
+...             return func(*args)
+...         return inner_func0
+...     def decorator1(func):
+...         def inner_func1(*args):
+...             print('decorator 1')
+...             return func(*args)
+...         return inner_func1
+...     return [decorator0, decorator1]
+...
+>>> decorators = make_decorators()
+>>>
+>>> @decorators[0]
+... def hello():
+...     print('hello')
+...
+>>> @decorators[1]
+... def goodbye():
+...     print('goodbye')
+...
+>>> hello()
+decorator 0
+hello
+>>> goodbye()
+decorator 1
+goodbye
+>>>
+```
+Python 3.8ではエラーとなる
+```python
+>>> def make_decorators():
+...     def decorator0(func):
+...         def inner_func0(*args):
+...             print('decorator 0')
+...             return func(*args)
+...         return inner_func0
+...     def decorator1(func):
+...         def inner_func1(*args):
+...             print('decorator 1')
+...             return func(*args)
+...         return inner_func1
+...     return [decorator0, decorator1]
+...
+>>> decorators = make_decorators()
+>>>
+>>> @decorators[0]
+  File "<stdin>", line 1
+    @decorators[0]
+               ^
+SyntaxError: invalid syntax
+>>> def hello():
+...     print('hello')
+...
+>>> @decorators[1]
+  File "<stdin>", line 1
+    @decorators[1]
+               ^
+SyntaxError: invalid syntax
+>>> def goodbye():
+...     print('goodbye')
+...
+```
+
+
+Python 3.8での回避法
+```python
+>>> # リストからデコレーターを取り出して、デコレーターにインデックス指定が
+>>> # 含まれないようにする
+>>> decorator0 = decorators[0]
+>>> decorator1 = decorators[1]
+>>>
+>>> @decorator0
+... def hello():
+...     print('Hello')
+...
+>>> @decorator1
+... def goodbye():
+...     print('Goodbye')
+...
+>>> hello()
+decorator 0
+Hello
+>>> goodbye()
+decorator 1
+Goodbye
+>>>
+>>> # 引数をそのまま返す関数を定義し、インデックス指定は、
+>>> # 関数の引数に含めるようにする。_x自体はdotted_nameなので問題ない
+>>> def _x(func):
+...     return func
+...
+>>> @_x(decorators[0])
+... def hello():
+...     print('hello')
+...
+>>> @_x(decorators[1])
+... def goodbye():
+...     print('goodbye')
+...
+>>> hello()
+decorator 0
+hello
+>>> goodbye()
+decorator 1
+goodbye
+>>>
+```
+
+
 
 # 新規追加モジュール
 
