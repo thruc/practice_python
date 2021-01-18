@@ -200,3 +200,11 @@ goodbye
 
 # 新規追加モジュール
 
+## zoneinfo
+
+# 改良モジュール
+
+## ast
+
+3.9：インデントオプションが追加されました
+whatsnew39\ast_prac.py
