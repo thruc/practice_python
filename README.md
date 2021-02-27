@@ -25,7 +25,16 @@ deactivate
 - gRPC
 - webrct
 - fraphQL
+- Poetryで管理
 
+# TODO
+- pythonでコマンド作製　bashみたいな
+- 定期実行
+
+
+# やってみたいこと
+- ライブラリ作成
+-
 ## vscode settings.json
 
 ```
