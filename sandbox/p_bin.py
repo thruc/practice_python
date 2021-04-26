@@ -1,4 +1,4 @@
+print(format(14, '#b'))
+for i in range(3):
+    print(i)
 
-数 = 1
-
-print(数)
