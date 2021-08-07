@@ -1,0 +1,7 @@
+study-02-selenium/drivers.json
+study-02-selenium/drivers/chromedriver/win32/89.0.4389.23/driver.zip
+*.log
+__pycache__
+study-03-desktop-01/view.spec
+study-03-desktop-01/build/*
+create_tabel/venv/*

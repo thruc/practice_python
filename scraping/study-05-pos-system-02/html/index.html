@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>レジシステム</title>
+
+        <script>
+            window.onload = function () {
+                eel.view_menu();
+                eel.crate_select();
+            };
+        </script>
+        <script type="text/javascript" src="./eel.js"></script>
+    </head>
+
+    <body>
+        <h1>レジシステム</h1>
+        <div id="menu"></div>
+        <h3>注文する商品コードと数量を入力してください</h3>
+        <div id="code_lst"></div>
+        <div>数量：<input type="number" id="count" value="1" min="1" /> <button id="order">注文</button></div>
+        <div id="confirm_view"></div>
+        <div>
+            <h3>支払い金額を入力してください</h3>
+            <div>￥<input type="text" id="recieved" />
+            <button id="pay">支払う</button></div>
+        </div>
+        <div>
+            <div id="change"></div>
+        </div>
+        <script>
+            // 注文ボタン
+            order.addEventListener("click", () => {
+                var code_v = code.value;
+                var order_num_v = count.value;
+                eel.add_order(code_v, order_num_v);
+            });
+
+            // 支払いボタン
+            pay.addEventListener("click", () => {
+                var recieved_v = recieved.value;
+                var flg;
+
+                if (recieved_v.length == 0) {
+                    alert("支払う金額を入力してください。");
+                } else {
+                    if (isNaN(recieved_v)) {
+                        alert("金額には数値を入力してください。");
+                    } else {
+                        // 決済実行
+                        eel.check(recieved_v);
+                    }
+                }
+            });
+
+            eel.expose(view_menu_js);
+            function view_menu_js(text) {
+                menu.innerHTML = text;
+            }
+            eel.expose(view_select_js);
+            function view_select_js(text) {
+                code_lst.innerHTML = text;
+            }
+
+            eel.expose(view_confirm_js);
+            function view_confirm_js(text) {
+                confirm_view.innerHTML = text;
+            }
+
+            eel.expose(view_change_js);
+            function view_change_js(text) {
+                change.innerHTML = text;
+            }
+        </script>
+    </body>
+</html>
