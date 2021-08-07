@@ -1,4 +1,5 @@
 # practice_python
+![pytest](https://github.com/tmhr/practice_python/workflows/pytest/badge.svg)
 
 <img src="https://img.shields.io/badge/-Windows-0078D6.svg?logo=windows&style=flat"> <img src="https://img.shields.io/badge/-Visual%20Studio%20Code-007ACC.svg?logo=visual-studio-code&style=flat"> <img src="https://img.shields.io/badge/-Python-F9DC3E.svg?logo=python&style=flat">
 
