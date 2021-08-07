@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>eelテスト</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <h2>eelテト</h2>
+        <input id="csv" placeholder="csvの入出力先を入力" />
+        <input id="word" placeholder="キーワードを入力" />
+        <button id="search">検索</button><br/>
+        <textarea id="result" class="result"></textarea>
+        <script type="text/javascript" src="./eel.js"></script>
+        <script>
+            search.addEventListener("click", () => {
+                // view.py　L10
+                eel.kimetsu_search(word.value, csv.value)
+            });
+            // search.py L17
+            eel.expose(view_log_js);
+            function view_log_js(text) {
+                result.value += text
+            }
+        </script>
+    </body>
+</html>
